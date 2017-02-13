@@ -52,6 +52,7 @@ module.exports = {
     SUCCESS_DATA_UPDATED: 'data updated successfully',
     SUCCESS_FILE_UPLOADED: 'file uploaded successfully',
 
+    WARNING_MISSING_IMPORTANT_PARAMS: 'missing some important params or they are null',
     WARNING_NO_DATA_FOUND: 'can not found any data matched',
     WARNING_NO_DATA_DELETE: 'can not found any data matched to delete',
     WARNING_PARAM_REQUIRE_NOT_NULL: 'there are several params requires not null',
