@@ -7,9 +7,9 @@
 
 // database info for develop environment
 const mysql_dev_conn_info = {
-    database: 'shengxin_server',    // replace the real database name with {databaseName} here
-    username: 'root',               // replace the real user name with {userName} here
-    password: 'liuxuhao7502280',    // replace the real password with {password} here
+    database: '{databaseName}',    // replace the real database name with {databaseName} here
+    username: '{userName}',               // replace the real user name with {userName} here
+    password: '{password}',    // replace the real password with {password} here
     options: {
         host: 'localhost',          // hostname
         dialect: 'mysql',           // database SQL dialect
