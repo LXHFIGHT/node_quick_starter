@@ -6,13 +6,13 @@
  */
 
 let Sequelize = require('sequelize');
-let { connInfo } = require('./config');
+let { mysqlConnInfo } = require('./config');
 
 let sequelize = new Sequelize(
-    connInfo.database,
-    connInfo.username,
-    connInfo.password,
-    connInfo.options
+    mysqlConnInfo.database,
+    mysqlConnInfo.username,
+    mysqlConnInfo.password,
+    mysqlConnInfo.options
 );
 
 module.exports = sequelize;

@@ -32,6 +32,7 @@ app.all('*', function(req, res, next) {
   next();
 });
 
+// TODO： config the router
 app.use('/user', users);
 app.use('/common', common);
 

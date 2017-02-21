@@ -9,26 +9,35 @@
 let co = require('co');
 let OSS = require('ali-oss');
 let LogHelper = require('./LogHelper');
-const { ali_oss_conf } = require('./../config');
+const { ali_oss_conf, use_oss } = require('./../config');
 
-let client = new OSS(ali_oss_conf);
+let client = null;
+
+if ( use_oss ) {
+   client = new OSS(ali_oss_conf);
+}
 
 /**
  *  文件上传工具
  *  @param key          键 例如 “avatar/343728-3237218-2321.jpg”
  *  @param filePath     目录
- *  @param callback     成功的回调方法
- *  @param errCallback  错误的回调信息
+ *  @param callback(err, result)     成功的回调方法
  */
-let uploadFile = (key, filePath, callback, errCallback) => {
-    co(function* () {
-        var result = yield client.put(key, filePath);
-        LogHelper.success(result);
-        callback(result);
-    }).catch(function (err) {
-        LogHelper.error(err);
-        errCallback(err);
-    });
+let uploadFile = (key, filePath, callback) => {
+    if (use_oss) {
+        co(function* () {
+            let result = yield client.put(key, filePath);
+            LogHelper.success(result);
+            callback(null, result);
+        }).catch(function (err) {
+            LogHelper.error(err);
+            callback(err, null);
+        });
+    } else {
+        let err = { msg: 'please switch the use_oss param to true in /cfg/oss/aliyun.js' };
+        callback(err, null);
+    }
+
 };
 
 module.exports = {

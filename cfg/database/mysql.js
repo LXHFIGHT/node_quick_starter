@@ -4,7 +4,7 @@
  * Description:
  *  mysql database connection configuration
  */
-
+// TODO edit the database connection information
 // database info for develop environment
 const mysql_dev_conn_info = {
     database: '{databaseName}',    // replace the real database name with {databaseName} here

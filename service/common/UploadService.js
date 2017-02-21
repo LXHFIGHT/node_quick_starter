@@ -8,7 +8,7 @@ let fs = require('fs');
 let uuidV4 = require('uuid/v4');
 let ResponseHelper = require('../../helpers/ResponseHelper');
 let ObjectHelper = require('../../helpers/ObjectHelper');
-let StorageHelper = require('../../helpers/StorageHelper');
+let OSSHelper = require('../../helpers/OSSHelper');
 let multiparty = require('multiparty');
 let { allowUploadTypes } = require('../../config');
 
@@ -93,21 +93,23 @@ let uploadImageCloud = (req, res, next) => {
                 // 重命名图片
                 fs.renameSync(uploadedPath, dstPath);
                 // 缓存上传图片信息 包括默认值originId为-1,
-                StorageHelper.uploadFile(key, dstPath, (result) => {
-                    fs.unlinkSync(dstPath); // 删除本地图片文件
-                    resData = ResponseHelper.getResponseBundle({
-                        msg: `${ResponseHelper.SUCCESS_FILE_UPLOADED}`,
-                        data: { url: result.url, name: result.name },
-                        result: 0
-                    });
-                    ResponseHelper.setResponseJSON(res, resData, 200);
-                }, (err) => {
-                    resData = ResponseHelper.getResponseBundle({
-                        msg: `${ResponseHelper.ERROR_FILE_UPLOAD}`,
-                        data: err,
-                        result: 0
-                    });
-                    ResponseHelper.setResponseJSON(res, resData, 404);
+                OSSHelper.uploadFile(key, dstPath, (err, result) => {
+                    if ( err ) {
+                        resData = ResponseHelper.getResponseBundle({
+                            msg: `${ResponseHelper.ERROR_FILE_UPLOAD}`,
+                            data: err,
+                            result: 400
+                        });
+                        ResponseHelper.setResponseJSON(res, resData, 404);
+                    } else {
+                        fs.unlinkSync(dstPath); // 删除本地图片文件
+                        resData = ResponseHelper.getResponseBundle({
+                            msg: `${ResponseHelper.SUCCESS_FILE_UPLOADED}`,
+                            data: { url: result.url, name: result.name },
+                            result: 0
+                        });
+                        ResponseHelper.setResponseJSON(res, resData, 200);
+                    }
                 });
             } else {
                 resData = ResponseHelper.getResponseBundle({

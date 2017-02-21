@@ -5,7 +5,7 @@
  *   Aliyun OSS configuration
  *   URL:   https://www.aliyun.com/product/oss?spm=5176.8142029.388261.47.QASlTJ
  */
-
+const use_oss = true;
 const ali_oss_conf = {
     region: '',                             // OSS对象区域
     accessKeyId: '',                        // 阿里云账号的accessKey
@@ -15,5 +15,6 @@ const ali_oss_conf = {
 };
 
 module.exports = {
+    use_oss,
     ali_oss_conf
 };

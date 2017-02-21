@@ -6,7 +6,7 @@
  */
 const { redisConnInfo } = require('./cfg/database/redis');
 const { mysqlConnInfo } = require('./cfg/database/mysql');
-const { ali_oss_conf } = require('./cfg/oss/aliyun');
+const { ali_oss_conf, use_oss } = require('./cfg/oss/aliyun');
 const { jwtSecret, tokenValidity, tokenValidityUnit } = require('./cfg/secure/jwt');
 const wechatCfg = require('./cfg/platform/wechat');
 const allowUploadTypes = ['feedback', 'avatar', 'cover'];  // 允许上传图片的业务场景: 反馈图片, 头像, 封面图片
@@ -17,6 +17,7 @@ module.exports = {
     mysqlConnInfo,
 
     // oss connection configuration
+    use_oss,
     ali_oss_conf,
     allowUploadTypes,
 
