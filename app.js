@@ -9,6 +9,7 @@ let InitHelper = require('./helpers/InitHelper');
 // Routers requirement
 let users = require('./routes/users');
 let common = require('./routes/common');
+let login = require('./routes/login');
 
 let app = express();
 

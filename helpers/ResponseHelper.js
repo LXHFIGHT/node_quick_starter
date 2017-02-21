@@ -45,6 +45,8 @@ let setResponseJSON = (res, data, code = 200) => {
 module.exports = {
 
     // 公共信息字符串
+
+    // 成功字符串
     SUCCESS_DATA_INSERTED: 'data inserted successfully ',
     SUCCESS_DATA_READ: 'data read successfully',
     SUCCESS_DATA_DELETED: 'data deleted successfully ',
@@ -52,11 +54,15 @@ module.exports = {
     SUCCESS_DATA_UPDATED: 'data updated successfully',
     SUCCESS_FILE_UPLOADED: 'file uploaded successfully',
 
-    WARNING_MISSING_IMPORTANT_PARAMS: 'missing some important params or they are null',
+    // 警告字符串
+    WARNING_NO_TOKEN: 'without token',
+    WARNING_INVALID_TOKEN: 'invalid token',
+    WARNING_EXPIRED_TOKEN: 'expired token',
     WARNING_NO_DATA_FOUND: 'can not found any data matched',
     WARNING_NO_DATA_DELETE: 'can not found any data matched to delete',
     WARNING_PARAM_REQUIRE_NOT_NULL: 'there are several params requires not null',
 
+    // 错误自渡船
     ERROR_DATA_INSERTED: 'data insert error',
     ERROR_DATA_UNIQUE: 'data insert error, require unique',
     ERROR_DATA_READ: 'data search error',

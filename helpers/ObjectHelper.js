@@ -6,6 +6,7 @@
  */
 
 let crypto = require('crypto');                         // for encrypt the string
+let pinyin = require('pinyin');                         // 获取汉语拼音相关接口
 let Shuffle = require('knuth-shuffle').knuthShuffle;    // for shuffling the array
 
 /**
@@ -61,7 +62,7 @@ let notNullParams = (obj, arr) => {
         }
     });
     if(errArr.length !== 0){
-       return `${errArr.join(',')} ${ errArr.length === 1 ? '' : '等' }参数不能为空`;
+        return `${errArr.join(',')} ${ errArr.length === 1 ? '' : '等' }参数不能为空`;
     }
     return null;
 };
@@ -130,6 +131,18 @@ let getDateFormat = (date) => {
     return `${content.getFullYear()}-${getDateFormatData(content.getMonth() + 1)}-${getDateFormatData(content.getDate())} ${getDateFormatData(content.getHours())}:${getDateFormatData(content.getMinutes())}:${getDateFormatData(content.getSeconds())}`
 };
 
+/**
+ * 获取中文的拼音
+ * @param str
+ */
+let getPinyin = (str) => {
+    let result = pinyin(str, {
+        style: pinyin.STYLE_NORMAL,
+        heteronym: false
+    });
+    return result.join('').toLowerCase();
+};
+
 // exporting functions
 module.exports = {
     isArray,
@@ -139,5 +152,6 @@ module.exports = {
     encryptByMD5,
     randomNumber,
     getNow,
-    getDateFormat
+    getDateFormat,
+    getPinyin
 };

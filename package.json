@@ -11,18 +11,23 @@
     "install": "node-gyp rebuild"
   },
   "dependencies": {
+    "ali-oss": "^4.8.0",
     "async": "^2.1.4",
     "body-parser": "~1.15.2",
+    "co": "^4.6.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^7.3.0",
     "knuth-shuffle": "^1.0.1",
+    "moment": "^2.17.1",
     "morgan": "~1.7.0",
     "multiparty": "^4.1.2",
     "mysql": "^2.12.0",
     "node-gyp": "^3.4.0",
     "node-images": "^1.5.5",
+    "pinyin": "^2.8.0",
     "sequelize": "^3.28.0",
     "serve-favicon": "~2.3.0",
     "uuid": "^3.0.1"
