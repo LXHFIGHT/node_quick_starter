@@ -1,14 +1,15 @@
 /**
- * Created by LXHFIGHT on 2017/2/16 17:32.
+ * Created by LXHFIGHT on 2017/3/1 23:33.
  * Email: lxhfight51@outlook.com
  * Description:
- *  redis 数据库处理
+ *  Redis tool
  */
 
 
+
 let redis = require('redis');
-let { redisConnInfo } = require('./config');
-let LogHelper = require('./helpers/LogHelper');
+let { redisConnInfo } = require('./../config');
+let LogHelper = require('./LogHelper');
 let db = {};
 
 let client = redis.createClient(
@@ -45,7 +46,6 @@ db.set = (key, value, callback) => {
         if (err) {
             console.log(err);
             callback(err, null);
-            return;
         }
         callback(null, result);
     });
@@ -101,4 +101,5 @@ db.hgetall = (key, callback) => {
 };
 
 module.exports = db;
+
 

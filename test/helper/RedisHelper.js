@@ -5,10 +5,42 @@
  *     测试 redis 数据库操作
  */
 
-let redisDB = require('../../redisdb');
+let redisDB = require('../../helpers/RedisHelper');
 
-redisDB.set('yahoo', 'good', (err, result) =>{
-   if (err === null){
+let user = {
+    name: 'LXHFIGHT',
+    password: 'linux harry',
+    dept: 'IT21',
+    position: 'frontend engineer'
+};
+
+redisDB.hmset('user', user, (err, result) =>{
+   if (err === null) {
        console.log(result);
+       redisDB.hgetall('user', (err, result) => {
+            if (err === null) {
+                console.log(result);
+            }else{
+                console.log(err);
+            }
+       });
+   } else {
+       console.log(err);
    }
 });
+
+redisDB.set('link',  'https://www.lxhfight.com', (err, result) => {
+    if (err) {
+        console.log(err);
+    } else{
+        console.log(result);
+        redisDB.get('link', (err, result) => {
+            if (err === null) {
+                console.log(result);
+            }else{
+                console.log(err);
+            }
+        });
+    }
+});
+
