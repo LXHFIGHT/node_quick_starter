@@ -67,5 +67,38 @@ db.get = (key, callback) => {
     });
 };
 
+/**
+ * 将一个对象保存以hash方式保存在redis
+ * @param key  键
+ * @param value  javascript对象
+ * @param callback(err, result) 回调方法
+ */
+db.hmset = (key, value, callback) => {
+    client.hmset(key, value, (err, result) => {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+            return;
+        }
+        callback(null, result);
+    });
+};
+
+/**
+ * 通过键获取指定的对象
+ * @param key 键
+ * @param callback(err, result) 回调方法
+ */
+db.hgetall = (key, callback) => {
+    client.hgetall(key, (err, result) => {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else {
+            callback(null, result);
+        }
+    });
+};
+
 module.exports = db;
 

@@ -11,5 +11,6 @@ let UploadService = require('../service/common/UploadService');
 
 // 上传图片通用接口
 router.post('/upload/:type', UploadService.uploadImages);
+router.post('/uploadCloud/:type', UploadService.uploadImageCloud);
 
 module.exports = router;
