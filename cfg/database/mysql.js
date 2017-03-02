@@ -12,6 +12,7 @@ const mysql_dev_conn_info = {
     password: '{password}',         // TODO replace the real password with {password} here
     options: {
         host: 'localhost',          // hostname
+        port: 3306,                 // port
         dialect: 'mysql',           // database SQL dialect
         timezone: '+08:00',         // database timezone ('+08:00 Beijing')
         pool: {
@@ -29,6 +30,7 @@ const mysql_prod_conn_info = {
     password: '{password}',         // TODO replace the real password with {password} here
     options: {
         host: 'localhost',          // hostname
+        port: 3306,                 // port
         dialect: 'mysql',           // database SQL dialect
         timezone: '+08:00',         // database timezone ('+08:00 Beijing')
         pool: {
