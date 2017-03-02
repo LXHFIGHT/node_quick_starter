@@ -15,7 +15,7 @@ const { oss_type, oss_conf, use_oss } = require('./../config');
 let client = null;
 
 if ( use_oss && oss_type === 'aliyun') {
-    client = new AliyunOSS(ali_oss_conf);
+    client = new AliyunOSS(oss_conf);
 } else if ( use_oss && oss_type === 'qiniu') {
     //需要填写你的 Access Key 和 Secret Key
     qiniu.conf.ACCESS_KEY = oss_conf.ACCESS_KEY;

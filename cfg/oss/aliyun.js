@@ -7,11 +7,11 @@
  */
 const use_ali_oss = true;
 const ali_oss_conf = {
-    region: '',                             // OSS对象区域
-    accessKeyId: '',                        // 阿里云账号的accessKey
-    accessKeySecret: '',                    // 阿里云账号的accessKeySecret
-    bucket: '',                             // 阿里云OSS对象存储桶名字
-    endpoint: ''                            // 阿里云OSS的终端域名
+    region: '',                             // TODO OSS对象区域
+    accessKeyId: '',                        // TODO 阿里云账号的accessKey
+    accessKeySecret: '',                    // TODO 阿里云账号的accessKeySecret
+    bucket: '',                             // TODO 阿里云OSS对象存储桶名字
+    endpoint: ''                            // TODO 阿里云OSS的终端域名
 };
 
 module.exports = {
