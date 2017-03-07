@@ -6,7 +6,7 @@
  */
 
 let https = require('https');
-let redisdb = require('./../../redisdb');
+let redisdb = require('./../../helpers/RedisHelper');
 let AuthorizeHelper = require('./../../helpers/AuthorizeHelper');
 let ResponseHelper = require('./../../helpers/ResponseHelper');
 let LogHelper = require('./../../helpers/LogHelper');
