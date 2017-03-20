@@ -27,17 +27,29 @@ let getResponseBundle = (options) => {
  */
 let setResponseJSON = (res, data, code = 200) => {
     let responseData = data;
-    if(typeof responseData !== 'string'){
+    if (typeof responseData !== 'string') {
         responseData = JSON.stringify(responseData);
     }
-    // 设置响应头
-    res.writeHead(code, {
-        'charset': 'utf-8',
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Methods':'PUT,POST,GET,DELETE,OPTIONS',
-        'Access-Control-Allow-Headers':'Content-Type,Content-Length, Authorization, Accept, X-Requested-With',
-        'Content-Type': 'application/json, application/x-www-form-urlencoded'
-    });
+    // 根据生产环境与否添加Access-Control-Allow-Origin头信息
+    if (!process.env.NODE_ENV) {
+        // 设置响应头
+        res.writeHead(code, {
+            'charset': 'utf-8',
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Methods':'PUT,POST,GET,DELETE,OPTIONS',
+            'Access-Control-Allow-Headers':'Content-Type,Content-Length, Authorization, Accept, X-Requested-With',
+            'Content-Type': 'application/json, application/x-www-form-urlencoded'
+        });
+    } else {
+        // 设置响应头
+        res.writeHead(code, {
+            'charset': 'utf-8',
+            'Access-Control-Allow-Methods':'PUT,POST,GET,DELETE,OPTIONS',
+            'Access-Control-Allow-Headers':'Content-Type,Content-Length, Authorization, Accept, X-Requested-With',
+            'Content-Type': 'application/json, application/x-www-form-urlencoded'
+        });
+    }
+
     res.write(responseData);
     res.end();
 };

@@ -11,6 +11,7 @@ const { mysqlConnInfo } = require('./cfg/database/mysql');
 const { ali_oss_conf, use_ali_oss } = require('./cfg/oss/aliyun');
 const { qiniu_oss_conf, use_qiniu_oss } = require('./cfg/oss/qiniu');
 const { jwtSecret, tokenValidity, tokenValidityUnit } = require('./cfg/secure/jwt');
+const { logCfg } = require('./cfg/server/server');
 const wechatCfg = require('./cfg/platform/wechat');
 const allowUploadTypes = ['feedback', 'avatar', 'cover'];  // 允许上传图片的业务场景: 反馈图片, 头像, 封面图片
 
@@ -48,5 +49,9 @@ module.exports = {
 
     // platform relative configuration
     wechat_appid: wechatCfg.appid,
-    wechat_secret: wechatCfg.secret
+    wechat_secret: wechatCfg.secret,
+
+    // server config
+    logCfg
+
 };
