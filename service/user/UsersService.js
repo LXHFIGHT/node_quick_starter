@@ -22,7 +22,7 @@ let addItem = (req, res, next) => {
     let test = ObjectHelper.notNullParams(item, ['deviceId', 'device']);
     // 如果添加的记录中不包括deviceId和device字段或其为空，则返回错误信息
     if (test) {
-        LogHelper.error(item);
+        LogHelper.error(test);
         ResponseHelper.setResponseJSON(res, { msg: test, result: 1, data: -1 });
     } else {
         LogHelper.success(item);
