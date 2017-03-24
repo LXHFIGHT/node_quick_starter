@@ -38,35 +38,41 @@ let generateToken = (obj) => {
  * @param next  go next function
  */
 let jwtauth = (req, res, next) => {
-    let authorization = req.headers['authorization'];
-    if (authorization) {
-        let token = req.headers['authorization'].split(' ')[1];
-        let msg = '';
-        // verify a token symmetric
-        jwt.verify(token, jwtSecret, function(err, decoded) {
-            if (err) {
-                msg = ResponseHelper.WARNING_INVALID_TOKEN;
-                LogHelper.error(msg);
-                ResponseHelper.setResponseJSON(res, {result: 1, msg, data: -1}, 401);
-            } else {
-                LogHelper.log(`expTime: ${decoded.exp}  now: ${Date.now()} isExpired: ${decoded.exp < Date.now()}`);
-                // 判断是否过期
-                if (decoded.exp > Date.now()) {
-                    LogHelper.success('authorized token');
-                    next();
-                } else {
-                    msg = ResponseHelper.WARNING_EXPIRED_TOKEN;
+    // 判断是否在开发环境 如果在开发环境中，为方便接口测试， 不需要任何token即可请求
+    if (!process.env.NODE_ENV) {
+        next();
+    } else {
+        let authorization = req.headers['authorization'];
+        if (authorization) {
+            let token = req.headers['authorization'].split(' ')[1];
+            let msg = '';
+
+            // verify a token symmetric
+            jwt.verify(token, jwtSecret, function(err, decoded) {
+                if (err) {
+                    msg = ResponseHelper.WARNING_INVALID_TOKEN;
                     LogHelper.error(msg);
                     ResponseHelper.setResponseJSON(res, {result: 1, msg, data: -1}, 401);
+                } else {
+                    LogHelper.log(`expTime: ${decoded.exp}  now: ${Date.now()} isExpired: ${decoded.exp < Date.now()}`);
+                    // 判断是否过期
+                    if (decoded.exp > Date.now()) {
+                        LogHelper.success('authorized token');
+                        next();
+                    } else {
+                        msg = ResponseHelper.WARNING_EXPIRED_TOKEN;
+                        LogHelper.error(msg);
+                        ResponseHelper.setResponseJSON(res, {result: 1, msg, data: -1}, 401);
+                    }
                 }
-            }
-        });
-    }
-    // 如果没有带上token则定义为非授权
-    else {
-        let msg = ResponseHelper.WARNING_NO_TOKEN;
-        LogHelper.error(msg);
-        ResponseHelper.setResponseJSON(res, {result: 1, msg, data: -1}, 401);
+            });
+        }
+        // 如果没有带上token则定义为非授权
+        else {
+            let msg = ResponseHelper.WARNING_NO_TOKEN;
+            LogHelper.error(msg);
+            ResponseHelper.setResponseJSON(res, {result: 1, msg, data: -1}, 401);
+        }
     }
 };
 
