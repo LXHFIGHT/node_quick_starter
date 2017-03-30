@@ -44,7 +44,8 @@ client.on('error', (err) => {
 db.set = (key, value, callback) => {
     client.set(key, value, (err, result) => {
         if (err) {
-            console.log(err);
+            LogHelper.error('Redis 存储字符串' + key + '出错, 详细信息如下:')
+            LogHelper.error(err);
             callback(err, null);
         }
         callback(null, result);
@@ -59,6 +60,7 @@ db.set = (key, value, callback) => {
 db.get = (key, callback) => {
     client.get(key, (err, result) => {
         if (err) {
+            LogHelper.error('Redis 获取字符串' + key + '出错, 详细信息如下:');
             LogHelper.error(err);
             callback(err, null);
             return;
