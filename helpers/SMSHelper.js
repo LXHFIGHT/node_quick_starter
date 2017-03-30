@@ -24,17 +24,15 @@ let generateCode = (number) => {
  * 发送验证短信的方法
  * @param options 需要参数
  * @param options.templateIndex 模板名
- * @param options.name 发送的用户名（不填时默认为 “用户 ” ）
  * @param options.cellphone 发送的用户手机号码
  * @param callback 回调方法
  */
 let sendValidCode = (options, callback) => {
     const cellphone = options.cellphone;
-    const name = options.name || '用户';
     const templateInfo = smsCfg.templates[options.templateIndex || 0];
     const code = generateCode(templateInfo.codeLength || 6);
     //  需要发送的参数
-    let param = { name, code };
+    let param = { code };
     let cellRegExp = /^1[3|5|7|8][0-9]{9}$/;
     if(!cellRegExp.test(cellphone)){
         let err = { msg: "cellphone style 's not match" };
