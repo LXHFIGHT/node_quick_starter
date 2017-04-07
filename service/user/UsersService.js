@@ -36,6 +36,11 @@ let getList = (req, res, next) => {
     BaseDAO.getList(model, req.query, res);
 };
 
+//  获取统计数
+let getNumber = (req, res, next) => {
+    BaseDAO.getNumber(model, req.query, res);
+};
+
 //  根据id获取记录
 let getItem = (req, res, next) => {
     let id = req.params.id;
@@ -50,6 +55,7 @@ let deleteItem = (req, res, next) => {
 
 module.exports = {
     addItem,
+    getNumber,
     updateItem,
     getList,
     getItem,

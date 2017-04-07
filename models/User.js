@@ -103,6 +103,25 @@ let update = (item, callback, errCallback) => {
 };
 
 /**
+ * 查询指定查询条件的元素的总个数
+ * @param query 查询条件
+ * @param callback
+ */
+let count = (query, callback) => {
+    let searchBundle = RequestHelper.getSearchBundle(query);
+    model
+        .count(searchBundle)
+        .then(function(result) {
+            LogHelper.success(chartName + ' ' + ResponseHelper.SUCCESS_LIST_READ);
+            callback(null, result);
+        })
+        .catch((err) => {
+            LogHelper.error(err);
+            callback(err.stack, null);
+        });
+};
+
+/**
  * 获取指定查询条件下的元素列表
  * @param query 查询条件
  * @param callback
@@ -144,7 +163,7 @@ let del = (id, callback, errCallback) => {
             LogHelper.error(err);
             errCallback(err.stack);
         })
-}
+};
 
 /*
     可以根据业务需要添加关于model的不同的回调方法
@@ -158,5 +177,6 @@ module.exports = {
     add,
     update,
     list,
+    count,
     del
 };

@@ -19,15 +19,18 @@ let addItem = (model, body, res) => {
     model.add(
         body,
         (data) => {
+            LogHelper.success('成功添加一个记录');
             // 当回调信息传入的值为字符串时，对应的情况是添加对象缺少重要参数或为空
             resData = ResponseHelper.getResponseBundle({
                 msg: `${ResponseHelper.SUCCESS_DATA_INSERTED}`,
-                data: data.dataValues
+                data: data.dataValues,
+                result: 0
             });
-            ResponseHelper.setResponseJSON(res, resData);
-            return null;
+            ResponseHelper.setResponseJSON(res, resData, 200);
         },
         (err) => {
+            LogHelper.error('插入记录失败，错误信息如下：');
+            LogHelper.error(err);
             resData = {
                 msg: `${ResponseHelper.ERROR_DATA_INSERTED}`,
                 data: err,
@@ -90,7 +93,32 @@ let getList = (model, query, res) => {
 };
 
 /**
- * 2获取指定ID的数据模型
+ * 获取指定查询对象的数据模型的个数
+ * @param model 指定的数据模型
+ * @param query 查询条件
+ * @param res HTTP响应对象
+ */
+let getNumber = (model, query, res) => {
+    model.count(
+        query,
+        (err, data) => {
+            if (err) {
+                let resData = { msg: ResponseHelper.ERROR_LIST_READ, data: err, result: 1 };
+                ResponseHelper.setResponseJSON(res, resData, 404);
+            } else {
+                let resData = ResponseHelper.getResponseBundle({
+                    msg: ResponseHelper.SUCCESS_LIST_READ,
+                    data: data,
+                    result: 0
+                });
+                ResponseHelper.setResponseJSON(res, resData, 200);
+            }
+        }
+    )
+};
+
+/**
+ * 获取指定ID的数据模型
  * @param model  指定的数据模型
  * @param id  指定的ID
  * @param res 响应对象
@@ -175,6 +203,7 @@ let getWhereBundle = (obj) => {
 module.exports = {
     addItem,
     updateItem,
+    getNumber,
     getList,
     getItemById,
     deleteItemById,
