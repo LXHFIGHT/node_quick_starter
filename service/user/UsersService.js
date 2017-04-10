@@ -49,7 +49,7 @@ let getItem = (req, res, next) => {
 
 //  删除
 let deleteItem = (req, res, next) => {
-    let id = parseInt(req.params.id);
+    let id = req.params.id; // 如果是整数型ID的话需要使用 parseInt(req.params.id)
     BaseDAO.deleteItemById(model, id, res);
 };
 
