@@ -9,6 +9,8 @@ router.get('/total', ItemService.getNumber);
 
 router.get('/:id', ItemService.getItem);
 
+router.delete('/', ItemService.deleteItemByQuery);
+
 router.delete('/:id', ItemService.deleteItem);
 
 router.post('/:id', ItemService.updateItem);

@@ -165,6 +165,23 @@ let del = (id, callback, errCallback) => {
         })
 };
 
+/**
+ * 删除符合指定搜索信息的元素
+ * @param query 指定删除元素的匹配信息
+ * @param callback 删除成功回调方法
+ */
+let delQuery = (query, callback) => {
+    let searchBundle = RequestHelper.getSearchBundle(query);
+    model.destroy(searchBundle)
+        .then((rowsDeleted) => {
+            LogHelper.success(chartName + ' ' + ResponseHelper.SUCCESS_DATA_DELETED);
+            callback(null, rowsDeleted);
+        }).catch((err) => {
+            LogHelper.error(err);
+            callback(err.stack, null);
+        })
+};
+
 /*
     可以根据业务需要添加关于model的不同的回调方法
     例如：
@@ -173,10 +190,12 @@ let del = (id, callback, errCallback) => {
  */
 module.exports = {
     model,
+    chartName,
     get,
     add,
     update,
     list,
     count,
-    del
+    del,
+    delQuery
 };

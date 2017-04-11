@@ -53,11 +53,23 @@ let deleteItem = (req, res, next) => {
     BaseDAO.deleteItemById(model, id, res);
 };
 
+// 通过query中携带信息删除符合条件的数据
+let deleteItemByQuery = (req, res, next) => {
+    let { query } = req;
+    if(query === {}){
+        next();
+    } else {
+        LogHelper.log(model.chartName + ' 数据表 - 删除操作！' );
+        BaseDAO.deleteItemByQuery(model, query, res);
+    }
+};
+
 module.exports = {
     addItem,
     getNumber,
     updateItem,
     getList,
     getItem,
-    deleteItem
+    deleteItem,
+    deleteItemByQuery
 };

@@ -199,6 +199,42 @@ let getWhereBundle = (obj) => {
     return where;
 };
 
+/**
+ * 删除符合指定搜索条件的数据模型 【限于带有delQuery方法的model】
+ * @param model  指定的数据模型
+ * @param query  需要删除的数据的查询条件
+ * @param res 响应对象
+ */
+let deleteItemByQuery = (model, query, res) => {
+    let resData = null;
+    model.delQuery(
+        query,
+        (err, rowsDeleted) => {
+            if (err) {
+                let resData = ResponseHelper.getResponseBundle({
+                    msg: ResponseHelper.ERROR_DATA_DELETED,
+                    data: err
+                });
+                ResponseHelper.setResponseJSON(res, resData, 404);
+            } else {
+                if (rowsDeleted === 0){
+                    resData =ResponseHelper.getResponseBundle({
+                        msg:  ResponseHelper.WARNING_NO_DATA_FOUND,
+                        data: rowsDeleted,
+                        result: 1
+                    });
+                } else {
+                    resData =ResponseHelper.getResponseBundle({
+                        msg:  ResponseHelper.SUCCESS_DATA_DELETED,
+                        data: rowsDeleted,
+                        result: 0
+                    });
+                }
+                ResponseHelper.setResponseJSON(res, resData);
+            }
+        });
+};
+
 
 module.exports = {
     addItem,
@@ -207,5 +243,6 @@ module.exports = {
     getList,
     getItemById,
     deleteItemById,
-    getWhereBundle
+    getWhereBundle,
+    deleteItemByQuery
 };
