@@ -36,8 +36,11 @@ let QiniuUploadFile = (key, filePath, callback) => {
         var extra = new qiniu.io.PutExtra();
         qiniu.io.putFile(token, key, filePath, extra, (err, result) => {
             if(!err) {
+                LogHelper.success('七牛云上传图片成功, 成功信息为：');
+                LogHelper.success(result);
                 callback(null, { url: (oss_conf.prefix + result.key) });
             } else {
+                LogHelper.error('七牛云处理上传图片出错，具体信息为: ');
                 LogHelper.error(err.stack);
                 callback(err);
             }
@@ -59,9 +62,11 @@ let AliyunUploadFile = (key, filePath, callback) => {
     if (use_oss) {
         co(function* () {
             let result = yield client.put(key, filePath);
+            LogHelper.success('阿里云上传图片成功, 成功信息为：');
             LogHelper.success(result);
             callback(null, result);
         }).catch(function (err) {
+            LogHelper.error('阿里云处理上传图片出错，具体信息为: ');
             LogHelper.error(err);
             callback(err, null);
         });

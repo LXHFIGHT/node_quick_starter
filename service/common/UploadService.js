@@ -1,5 +1,6 @@
 /**
  * Created by LXHFIGHT on 2017/1/3 16:25.
+ * last updated by LXHFIGHT on 2017/4/14 14:40
  * Email: lxhfight51@outlook.com
  * Description:
  *  导入原图服务
@@ -9,6 +10,7 @@ let uuidV4 = require('uuid/v4');
 let ResponseHelper = require('../../helpers/ResponseHelper');
 let ObjectHelper = require('../../helpers/ObjectHelper');
 let OSSHelper = require('../../helpers/OSSHelper');
+let LogHelper = require('../../helpers/LogHelper');
 let multiparty = require('multiparty');
 let { allowUploadTypes } = require('../../config');
 
@@ -50,6 +52,8 @@ let uploadImages = (req, res, next) => {
                     }
                 });
             } else {
+                LogHelper.error('解析客户端上传图片文件失败, 错误信息为：');
+                LogHelper.error(error);
                 resData = ResponseHelper.getResponseBundle({
                     msg: `${ResponseHelper.ERROR_FILE_UPLOAD}`,
                     data: err,
@@ -59,11 +63,13 @@ let uploadImages = (req, res, next) => {
             }
         });
     } else {
+
         let resData = ResponseHelper.getResponseBundle({
             msg: `${ResponseHelper.ERROR_FILE_UPLOAD}`,
             data: '请查看接口是否出错，上传图片页面类型不包括：' + type + ' 类型',
             result: 1
         });
+        LogHelper.error(resData.msg + '  ' + resData.data);
         ResponseHelper.setResponseJSON(res, resData, 404);
     }
 };
