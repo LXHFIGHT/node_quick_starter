@@ -51,6 +51,7 @@ module.exports = {
     // platform relative configuration
     wechat_appid: wechatCfg.appid,
     wechat_secret: wechatCfg.secret,
+    wechat_token: wechatCfg.token,
 
     // sms config file
     smsCfg: aliSmsConf.ali_sms_conf,

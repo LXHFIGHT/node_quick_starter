@@ -7,11 +7,11 @@
 // TODO edit the database connection information
 // database info for develop environment
 const mysql_dev_conn_info = {
-    database: '{databaseName}',     // TODO replace the real database name with {databaseName} here
-    username: '{userName}',         // TODO replace the real user name with {userName} here
-    password: '{password}',         // TODO replace the real password with {password} here
+    database: 'node_quick_starter',     // TODO replace the real database name with {databaseName} here
+    username: 'root',         // TODO replace the real user name with {userName} here
+    password: 'Liuxuhao7502280!',         // TODO replace the real password with {password} here
     options: {
-        host: 'localhost',          // hostname
+        host: '119.29.8.98',          // hostname
         port: 3306,                 // port
         dialect: 'mysql',           // database SQL dialect
         timezone: '+08:00',         // database timezone ('+08:00 Beijing')
@@ -25,9 +25,9 @@ const mysql_dev_conn_info = {
 
 // database info for production environment
 const mysql_prod_conn_info = {
-    database: '{databaseName}',     // TODO replace the real database name with {databaseName} here
-    username: '{userName}',         // TODO replace the real user name with {userName} here
-    password: '{password}',         // TODO replace the real password with {password} here
+    database: 'node_quick_starter',     // TODO replace the real database name with {databaseName} here
+    username: 'root',         // TODO replace the real user name with {userName} here
+    password: 'Liuxuhao7502280!',         // TODO replace the real password with {password} here
     options: {
         host: 'localhost',          // hostname
         port: 3306,                 // port

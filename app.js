@@ -10,6 +10,7 @@ let InitHelper = require('./helpers/InitHelper');
 let users = require('./routes/users');
 let common = require('./routes/common');
 let login = require('./routes/login');
+let platform = require('./routes/platform/index'); // 如果项目中不涉及到第三方平台的接口请求则可以注释掉此行
 
 let app = express();
 
@@ -40,6 +41,7 @@ app.all('*', function(req, res, next) {
 // TODO： config the router
 app.use('/user', users);
 app.use('/common', common);
+app.use('/platform', platform);  // 如果不包含第三方
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -8,14 +8,14 @@
 const redis_dev_conn_info = {
     RDS_PORT: 6379,             // TODO config your redis-server's port here in the development env [default value is 6379]
     RDS_HOST: '127.0.0.1',      // TODO config your redis-server's hostname here in the development env, [default value is 127.0.0.1]
-    RDS_PWD: '',                // TODO config your redis-server's authorization code(requirepass) here in the development env
+    RDS_PWD: 'Liuxuhao7502280!',                // TODO config your redis-server's authorization code(requirepass) here in the development env
     RDS_OPTS: {}                // config your redis-server's extra options in the development env
 };
 
 const redis_prod_conn_info = {
     RDS_PORT: 6379,             // TODO config your redis-server's port here in the production env [default value is 6379]
     RDS_HOST: '127.0.0.1',      // TODO config your redis-server's hostname here in the production env, [default value is 127.0.0.1]
-    RDS_PWD: '',                // TODO config your redis-server's authorization code(requirepass) here in the production env
+    RDS_PWD: 'Liuxuhao7502280',                // TODO config your redis-server's authorization code(requirepass) here in the production env
     RDS_OPTS: {}                // config your redis-server's extra options in the production env
 };
 

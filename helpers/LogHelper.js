@@ -6,7 +6,9 @@
  */
 
 let log4js = require('log4js');
-let type = 'dateFile', absolute = true, filename = '/var/log/node-server/', maxLogSize = 1024 * 1024;
+let type = 'dateFile', absolute = true,
+    filename = (process.env.NODE_ENV ? '/var/log/node_server/' :  '../../log/node-server/'),
+    maxLogSize = 1024 * 1024;
 
 log4js.configure({
     appenders: [

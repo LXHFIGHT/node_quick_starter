@@ -101,6 +101,24 @@ let encryptByMD5 = (str) =>  {
     return str;
 };
 
+let encryptStr = (str, algorithm) => {
+    let supported = crypto.getHashes();
+    let isSupported = false;
+    for (let algo of supported) {
+        if(algo === algorithm) {
+            isSupported = true;
+            break;
+        }
+    }
+    if (isSupported) {
+        let shasum = crypto.createHash(algorithm);
+        shasum.update(str);
+        return shasum.digest('hex');
+    } else {
+        return { errMsg: `不存在${algorithm}这种加密算法,可选项参照content`, content: supported };
+    }
+};
+
 let getDateFormatData = (num) => {
     if(num < 10){
         return '0' + num;
@@ -150,6 +168,7 @@ module.exports = {
     notNullParams,
     randomArray,
     encryptByMD5,
+    encryptStr,
     randomNumber,
     getNow,
     getDateFormat,

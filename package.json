@@ -1,7 +1,7 @@
 {
   "name": "node-quick-start-server",
   "version": "0.1.0",
-  "description": "This project is about a quick started Nodejs(Express) Porject, use Sequelize as the ORM, and the MySQL as the database manage system"
+  "description": "This project is about a quick started Nodejs(Express) Porject, use Sequelize as the ORM, and the MySQL as the database manage system",
   "private": false,
   "author": "LXHFIGHT",
   "scripts": {

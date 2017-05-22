@@ -5,11 +5,14 @@
  *  wechat platform appid and secret
  */
 
-const appid = "";    // 微信小程序 appid
+const appid = "wxadca191d01a5da27";    // 微信公众平台开发者唯一凭证 appid
 
-const secret = "";   // 微信小程序 secret
+const secret = "d5f97c023e86a72fcb31c56b1a25662a";   // 微信公众平台开发者唯一凭证秘钥 secret
+
+const token = "wechatTest";    // 微信基本配置中服务器配置 -> token 信息
 
 module.exports = {
     appid,
-    secret
+    secret,
+    token
 };
