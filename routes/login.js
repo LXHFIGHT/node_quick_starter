@@ -10,6 +10,6 @@ let router = express.Router();
 let ItemService = require('../service/login/LoginService');
 
 // 获取列表路由必须置于获取单条记录之前
-router.get('/wx', ItemService.wxLogin);
+//router.get('/wx', ItemService.wxLogin);
 
 module.exports = router;

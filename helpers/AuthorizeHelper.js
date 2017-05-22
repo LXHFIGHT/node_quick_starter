@@ -10,6 +10,9 @@ const { wechat_appid, wechat_secret, jwtSecret, tokenValidity, tokenValidityUnit
 let ResponseHelper = require('./../helpers/ResponseHelper');
 let LogHelper = require('./../helpers/LogHelper');
 
+
+
+
 /**
  * 微信小程序：生成用户openid和sessionKey获取URL
  * @param code 客户端通过wx.login请求获取的js_code
@@ -18,6 +21,7 @@ let LogHelper = require('./../helpers/LogHelper');
 let generateWechatAuthUrl = (code) => {
     return `https://api.weixin.qq.com/sns/jscode2session?appid=${wechat_appid}&secret=${wechat_secret}&js_code=${code}&grant_type=authorization_code`
 };
+
 
 /**
  * JWT 第三方token生成器

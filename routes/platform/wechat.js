@@ -9,4 +9,6 @@ let WechatService = require('./../../service/platform/WechatService');
 
 router.get('/activate', WechatService.activateServer);
 
+router.get('/login-xcx', WechatService.wxxcxLogin);
+
 module.exports = router;
