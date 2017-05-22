@@ -71,21 +71,17 @@ let wxxcxLogin = (req, res, next) => {
 //  微信公众号基本配置 -> 服务器配置 启用服务器接口 【面向微信服务器请求】
 let activateServer = (req, res, next) => {
     let { signature, timestamp, nonce, echostr } = req.query;
-    let { token } = config.wechat_token;
-
-    let sha1Str = ObjectHelper.encryptStr(`${nonce}${timestamp}${token}`, 'sha1');
-
-    LogHelper.warn('wechat sending timestamp: ' + timestamp);
-    LogHelper.warn('wechat sending nonce: ' + nonce);
-    LogHelper.warn('wechat sending echostr: ' + echostr);
-    LogHelper.warn('wechat sending signature: ' + signature);
-    LogHelper.warn('encryted sha1Str: ' + sha1Str);
+    let token  = config.wechat_token;
+    let arr = [timestamp, nonce, token];
+    let str = arr.sort();
+    let sha1Str = ObjectHelper.encryptStr(str, 'sha1');
 
     if (sha1Str === signature) {
         redisdb.set(wechatKeys.IS_WECHAT_SERVER_ACTIVATED, 1, (err, data) => {
             if (!err) {
                 LogHelper.warn('成功认证该服务器并启用');
                 res.write(echostr);
+                requestAccessToken();
                 res.end();
             } else {
                 LogHelper.error('redis保存微信是否认证该服务器出错');
