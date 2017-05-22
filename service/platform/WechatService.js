@@ -73,7 +73,7 @@ let activateServer = (req, res, next) => {
     let { signature, timestamp, nonce, echostr } = req.query;
     let token  = config.wechat_token;
     let arr = [timestamp, nonce, token];
-    let str = arr.sort();
+    let str = arr.sort().join('');
     let sha1Str = ObjectHelper.encryptStr(str, 'sha1');
 
     if (sha1Str === signature) {
@@ -81,6 +81,7 @@ let activateServer = (req, res, next) => {
             if (!err) {
                 LogHelper.warn('成功认证该服务器并启用');
                 res.write(echostr);
+                requestAccessToken();
                 res.end();
             } else {
                 LogHelper.error('redis保存微信是否认证该服务器出错');
