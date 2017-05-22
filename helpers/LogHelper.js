@@ -7,7 +7,7 @@
 
 let log4js = require('log4js');
 let type = 'dateFile', absolute = true,
-    filename = (process.env.NODE_ENV ? '/var/log/node_server/' :  '../../log/node-server/'),
+    filename = (process.env.NODE_ENV ? '/var/log/node-server/' :  '../../log/node-server/'),
     maxLogSize = 1024 * 1024;
 
 log4js.configure({
@@ -22,7 +22,7 @@ log4js.configure({
             filename,
             absolute,
             maxLogSize,
-            pattern: 'debug/debug日志-yyyy年MM月dd日hh时.txt',
+            pattern: 'debug/log-yyyy-MM-dd hh:mm.txt',
             alwaysIncludePattern: true,
             backups: 3,
             category: 'debugMode'
@@ -33,7 +33,7 @@ log4js.configure({
             filename,
             absolute,
             maxLogSize,
-            pattern: 'info/info日志-yyyy年MM月dd日hh时.txt',
+            pattern: 'info/log-yyyy-MM-dd hh:mm.txt',
             alwaysIncludePattern: true,
             backups: 3,
             category: 'infoMode'
@@ -44,7 +44,7 @@ log4js.configure({
             filename,
             absolute,
             maxLogSize,
-            pattern: 'warn/warn日志-yyyy年MM月dd日hh时.txt',
+            pattern: 'warn/log-yyyy-MM-dd hh:mm.txt',
             alwaysIncludePattern: true,
             backups: 3,
             category: 'warnMode'
@@ -55,7 +55,7 @@ log4js.configure({
             filename,
             absolute,
             maxLogSize,
-            pattern: 'error/error日志-yyyy年MM月dd日hh时.txt',
+            pattern: 'error/log-yyyy-MM-dd hh:mm.txt',
             alwaysIncludePattern: true,
             backups: 3,
             category: 'errorMode'
@@ -66,7 +66,7 @@ log4js.configure({
             filename,
             absolute,
             maxLogSize,
-            pattern: 'fatal/fatal日志-yyyy年MM月dd日hh时.txt',
+            pattern: 'fatal/log-yyyy-MM-dd hh:mm.txt',
             alwaysIncludePattern: true,
             backups: 3,
             category: 'fatalMode'
