@@ -81,9 +81,8 @@ let activateServer = (req, res, next) => {
     if (sha1Str === signature) {
         redisdb.set(wechatKeys.IS_WECHAT_SERVER_ACTIVATED, 1, (err, data) => {
             if (!err) {
-                LogHelper.log('成功认证该服务器并启用');
+                LogHelper.warn('成功认证该服务器并启用');
                 res.write(echostr);
-                requestAccessToken();
                 res.end();
             } else {
                 LogHelper.error('redis保存微信是否认证该服务器出错');
@@ -102,6 +101,7 @@ let requestAccessToken = () => {
     let httpsReq,
         data = '',
         url = ` https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.wechat_appid}&secret=${config.wechat_secret}`;
+    LogHelper.warn('请求获取Token信息');
     httpsReq = https.get(url, (httpsRes) => {
         httpsRes.setEncoding('utf8');
         httpsRes.on('data', (chunk) => {
@@ -112,8 +112,8 @@ let requestAccessToken = () => {
             redisdb.set(wechatKeys.WECHAT_ACCESS_TOKEN, json.access_token, (err, data) => {
                 if (!err) {
                     // 设置成功 并将access_token缓存在redis中
-                    LogHelper.log('微信access-token设置状态： 成功! 并将access_token缓存在redis中');
-                    LogHelper.log('微信access-token为：' + json.access_token);
+                    LogHelper.warn('微信access-token设置状态： 成功! 并将access_token缓存在redis中');
+                    LogHelper.warn('微信access-token为：' + json.access_token);
                 } else {
                     LogHelper.warn('redis保存微信access-token是出错');
                 }
