@@ -75,8 +75,11 @@ let activateServer = (req, res, next) => {
 
     let sha1Str = ObjectHelper.encryptStr(`${nonce}${timestamp}${token}`, 'sha1');
 
-    LogHelper.warn(' signature: ' + signature);
-    LogHelper.warn(' sha1Str: ' + sha1Str);
+    LogHelper.warn('wechat sending timestamp: ' + timestamp);
+    LogHelper.warn('wechat sending nonce: ' + nonce);
+    LogHelper.warn('wechat sending echostr: ' + echostr);
+    LogHelper.warn('wechat sending signature: ' + signature);
+    LogHelper.warn('encryted sha1Str: ' + sha1Str);
 
     if (sha1Str === signature) {
         redisdb.set(wechatKeys.IS_WECHAT_SERVER_ACTIVATED, 1, (err, data) => {
