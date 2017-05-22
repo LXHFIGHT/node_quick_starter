@@ -81,7 +81,6 @@ let activateServer = (req, res, next) => {
             if (!err) {
                 LogHelper.warn('成功认证该服务器并启用');
                 res.write(echostr);
-                requestAccessToken();
                 res.end();
             } else {
                 LogHelper.error('redis保存微信是否认证该服务器出错');
