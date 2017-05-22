@@ -12,11 +12,13 @@ let ObjectHelper = require('./../../helpers/ObjectHelper');
 let LogHelper = require('./../../helpers/LogHelper');
 let AuthorizeHelper = require('./../../helpers/AuthorizeHelper');
 let ResponseHelper = require('./../../helpers/ResponseHelper');
+let RequestHelper = require('./../../helpers/RequestHelper');
 let redisdb = require('./../../helpers/RedisHelper');
 
 let wechatKeys = {  // 微信相关缓存在redis中参数的键
     IS_WECHAT_SERVER_ACTIVATED: 'is_wechat_server_activated',
-    WECHAT_ACCESS_TOKEN: 'wechat_access_token'
+    WECHAT_ACCESS_TOKEN: 'wechat_access_token',
+    WECHAT_JSAPI_TICKET: 'wechat_jsapi_ticket'
 };
 
 
@@ -96,8 +98,12 @@ let activateServer = (req, res, next) => {
     }
 };
 
-
-
+/**
+ * 获取一次微信公众平台开发者凭证（AccessToken）操作
+ * 并将获得的access_token 缓存在redis
+ *
+ * 同时连贯性的获取前端调用JS-SDK的凭证——jsapi-ticket
+ */
 let requestAccessToken = () => {
     let httpsReq,
         data = '',
@@ -115,6 +121,7 @@ let requestAccessToken = () => {
                     // 设置成功 并将access_token缓存在redis中
                     LogHelper.warn('微信access-token设置状态： 成功! 并将access_token缓存在redis中');
                     LogHelper.warn('微信access-token为：' + json.access_token);
+                    requestJsapiTicket(json.access_token);
                 } else {
                     LogHelper.warn('redis保存微信access-token是出错');
                 }
@@ -130,8 +137,37 @@ let requestAccessToken = () => {
     httpsReq.end();
 };
 
+/**
+ * 根据accessToken获取到jsapi-token信息，并缓存的redis中
+ * @param accessToken 公众号开发者唯一凭证
+ */
+let requestJsapiTicket = (accessToken) => {
+    let url = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${accessToken}&type=jsapi`;
+    LogHelper.warn('请求获取调用js-sdk需要参数 jsapi-ticket');
+    RequestHelper.requestUrl(url, (err, data) => {
+        if (!err) {
+            let json = JSON.parse(data);
+            redisdb.set(wechatKeys.WECHAT_JSAPI_TICKET, json.ticket, (error, redisData) => {
+                if(!error) {
+                    LogHelper.warn('微信jsapi-ticket设置状态： 成功! 并将jsapi-ticket缓存在redis中');
+                    LogHelper.warn('微信jsapi-ticket为：' + json.ticket);
+                }
+            });
+        }
+    });
+};
+
+/**
+ *  获取调用微信jsdk wx.config方法所需要的部分配置
+ *  请求参数为： url 调用jssdk的完整路径
+ */
+let getSignature = (req, res, next) => {
+    let { url } = req.query;
+};
+
 module.exports = {
     activateServer,
     wxxcxLogin,
+    requestJsapiTicket,
     requestAccessToken
 };

@@ -4,9 +4,8 @@
  * Description:
  *
  */
-
 let ObjectHelper = require('./ObjectHelper');
-
+let LogHelper = require('./LogHelper');
 let excludeParams = ['page', 'pagesize', 'maxsize', 'order'];   // 不列入合并搜索的字段名
 
 /**
@@ -44,6 +43,38 @@ let getSearchBundle = (query) => {
     return { where,  order,  offset, limit };
 };
 
+
+let requestUrl = (url, callback) => {
+    let data = '';
+    let requestModule = null;
+    let Req = null;
+
+    if (url.indexOf('https') === 0) {
+        requestModule = require('https');
+    } else {
+        requestModule =  require('http');
+    }
+
+    Req = requestModule.get(url, (httpsRes) => {
+        httpsRes.setEncoding('utf8');
+        httpsRes.on('data', (chunk) => {
+            data += chunk;
+        });
+        httpsRes.on('end', () => {
+            callback(null, data);
+        });
+    });
+
+    Req.on('error', (err) => {
+        LogHelper.error('访问路径： ' + url + ' 获取参数失败');
+        LogHelper.error(err);
+        callback(err, null);
+    });
+
+    Req.end();
+};
+
 module.exports = {
-    getSearchBundle
+    getSearchBundle,
+    requestUrl
 };

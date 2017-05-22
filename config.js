@@ -49,6 +49,7 @@ module.exports = {
     tokenValidityUnit,
 
     // platform relative configuration
+    wechat_activated: wechatCfg.activated,
     wechat_appid: wechatCfg.appid,
     wechat_secret: wechatCfg.secret,
     wechat_token: wechatCfg.token,

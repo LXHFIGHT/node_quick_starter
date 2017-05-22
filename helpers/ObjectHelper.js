@@ -45,6 +45,15 @@ let randomNumber = (options) => {
     }
 };
 
+let randomString = (length) => {
+    let result = '';
+    let tpl = '0123456789qwertyuiopasdfghjklzxcvbnmZXCVBNMASDFGHJKLQWERTYUIOP';
+    for (let i = 0; i < length; i++) {
+        result += tpl.charAt(randomNumber({from: 0, to: 62}));
+    }
+    return result;
+};
+
 /**
  * 判断该对象中arr数组内的参数名对应的值是否为空，打印判断结果并且返回json
  * @param obj 带判断的结果 例如：
@@ -172,5 +181,6 @@ module.exports = {
     randomNumber,
     getNow,
     getDateFormat,
-    getPinyin
+    getPinyin,
+    randomString
 };
