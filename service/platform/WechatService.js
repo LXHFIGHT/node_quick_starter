@@ -86,9 +86,11 @@ let activateServer = (req, res, next) => {
                 res.end();
             } else {
                 LogHelper.error('redis保存微信是否认证该服务器出错');
+                LogHelper.error(err);
+                res.write('error: redis storage occured a problom');
+                res.end();
             }
         });
-
     } else {
         res.write('error: request not from wechat server');
         res.end();
